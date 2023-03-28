@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model 
+    package="App\Model\Order" 
+    baseClass="xPDO\Om\xPDOSimpleObject" 
+    platform="mysql" 
+    defaultEngine="InnoDB" 
+    phpdoc-package="App\Model\Order" 
+    version="3.0">
+
+    <object class="Setting" table="order_settings" extends="xPDO\Om\xPDOSimpleObject">
+	    <field key="user_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
+        <field key="address_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
+        <field key="payment_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
+        <field key="delivery_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
+
+        <field key="weight" dbtype="decimal" precision="13,3" phptype="float" null="true" 
+            default="0"/>
+
+        <field key="old_cart_cost" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="cart_cost" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="delivery_cost" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+
+        <field key="cost" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="sales_tax" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="discount" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+
+        <field key="contract_required" dbtype="tinyint" precision="1" phptype="boolean" null="true" 
+            default="0"/>
+
+        <field key="properties" dbtype="text" phptype="json" null="true" 
+            default="{}"/>
+
+        <field key="createdon" dbtype="datetime" phptype="datetime" />
+        <field key="updatedon" dbtype="datetime" phptype="datetime" />
+	    
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="address_id" name="address_id" primary="false" unique="false" type="BTREE">
+            <column key="address_id" length="" collation="A" null="false"/>
+        </index>
+      
+        <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" cardinality="one" 
+            owner="foreign"/>
+        <aggregate alias="UserProfile" class="MODX\Revolution\modUserProfile" local="user_id" foreign="internalKey" cardinality="one" 
+            owner="foreign"/>
+    </object>
+
+    <object class="Payment\Status" table="order_payment_statuses" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="order_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+        <field key="payment_status_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+	    
+        <index alias="order_id" name="order_id" primary="false" unique="false" type="BTREE">
+            <column key="order_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="payment_status_id" name="payment_status_id" primary="false" unique="false" type="BTREE">
+            <column key="payment_status_id" length="" collation="A" null="false"/>
+        </index>
+
+        <aggregate alias="Order" class="msOrder" local="order_id" foreign="id" cardinality="one"
+            owner="foreign"/>
+        <aggregate alias="PaymentStatus" class="App\Model\Payment\Status" local="payment_status_id" foreign="id" cardinality="one"
+            owner="foreign"/>
+    </object>
+</model>

@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'pdfresource',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => 'c72ed7e50a5281637191aa04de37c41b',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => '7adc90fef4c0090878a83b9d649d507a',
+  'native_key' => 'pdfresource.ownerPassword',
+  'object' => '{"key":"pdfresource.ownerPassword","value":"","xtype":"textarea","namespace":"pdfresource","area":"pdf","editedon":null}',
+);

@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'pdfresource',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '21a29a8011c7bfed5b54d215e6807449',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => '80f59a9dc95a00469261ed1f614649fa',
+  'native_key' => 'pdfresource.author',
+  'object' => '{"key":"pdfresource.author","value":"","xtype":"textfield","namespace":"pdfresource","area":"pdf","editedon":null}',
+);

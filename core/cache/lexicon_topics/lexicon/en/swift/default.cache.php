@@ -1,0 +1,17 @@
+<?php  return array (
+  'source_type.swift' => 'OpenStack Object Storage',
+  'source_type.swift_desc' => 'Navigates an OpenStack Object Storage container (Swift).',
+  'prop_swift.url_desc' => 'The URL of the Object Storage container.',
+  'prop_swift.container_desc' => 'Name of container in Object Storage container to load your data from.',
+  'prop_swift.authentication_service_desc' => 'The URL of the authentication service.',
+  'prop_swift.username_desc' => 'Username for authentication to container.',
+  'prop_swift.api_key_desc' => 'Api key for authentication to container.',
+  'prop_swift.imageExtensions_desc' => 'A comma-separated list of file extensions to use as images. MODX will attempt to make thumbnails of files with these extensions.',
+  'prop_swift.thumbnailType_desc' => 'The image type to render thumbnails as.',
+  'prop_swift.thumbnailQuality_desc' => 'The quality of the rendered thumbnails, in a scale from 0-100.',
+  'prop_swift.skipFiles_desc' => 'A comma-separated list. MODX will skip over and hide files and folders that match any of these.',
+  'prop_swift.service_desc' => 'Object store service to initialize',
+  'source_type.rackspace' => 'Rackspace Object Storage',
+  'source_type.rackspace_desc' => 'Navigates an Rackspace Object Storage container (Swift).',
+  'prop_swift.region_desc' => 'Region of storage',
+);

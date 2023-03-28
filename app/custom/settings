@@ -1,0 +1,7 @@
+contexts
+    web
+        http_host lateres.ru
+        site_url https://www.lateres.ru
+
+system_settings
+    session_cookie_domain = .lateres.ru

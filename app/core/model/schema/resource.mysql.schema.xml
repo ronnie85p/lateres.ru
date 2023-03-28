@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model 
+    package="App\Model\Resource" 
+    baseClass="xPDO\Om\xPDOSimpleObject" 
+    platform="mysql" 
+    defaultEngine="InnoDB" 
+    phpdoc-package="App\Model\Resource" 
+    version="3.0">
+
+    <object class="Visit" table="resource_visits" extends="xPDO\Om\xPDOSimpleObject">
+	    <field key="resource_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+	    <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+	    
+        <field key="ip" dbtype="varchar" precision="15" phptype="string" null="true"/>
+        <field key="ssid" dbtype="varchar" precision="191" phptype="string" null="true"/>
+        <field key="user_agent" dbtype="varchar" precision="255" phptype="string" null="true"/>
+      
+        <field key="timestamp" dbtype="timestamp" phptype="timestamp" null="false" default="CURRENT_TIMESTAMP"/>
+  		<field key="properties" dbtype="text" phptype="json" null="true" default="{}" />
+		
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="resource_id" name="resource_id" primary="false" unique="false" type="BTREE">
+            <column key="resource_id" length="" collation="A" null="false"/>
+        </index>
+      
+        <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" owner="foreign" cardinality="one"/>
+        <aggregate alias="UserProfile" class="MODX\Revolution\modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one"/>
+        <aggregate alias="Resource" class="MODX\Revolution\modResource" local="resource_id" foreign="id" owner="foreign" cardinality="one"/>        
+    </object>
+
+    <object class="Favorite" table="resource_favorites" extends="xPDO\Om\xPDOSimpleObject">
+	    <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+	    <field key="resource_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+
+        <field key="timestamp" dbtype="timestamp" phptype="timestamp" null="false" default="CURRENT_TIMESTAMP"/>
+  		<field key="properties" dbtype="text" phptype="json" null="true" default="{}" />
+		
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="resource_id" name="resource_id" primary="false" unique="false" type="BTREE">
+            <column key="resource_id" length="" collation="A" null="false"/>
+        </index>
+      
+        <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" owner="foreign" cardinality="one" />
+        <aggregate alias="UserProfile" class="MODX\Revolution\modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one" />
+        <aggregate alias="Resource" class="MODX\Revolution\modResource" local="resource_id" foreign="id" owner="foreign" cardinality="one"/>        
+    </object>
+
+    <object class="Comparison" table="resource_comparisons" extends="xPDO\Om\xPDOSimpleObject">
+	    <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+	    <field key="resource_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+      
+        <field key="timestamp" dbtype="timestamp" phptype="timestamp" null="false" default="CURRENT_TIMESTAMP"/>
+  		<field key="properties" dbtype="text" phptype="json" null="true" default="{}" />
+		
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="resource_id" name="resource_id" primary="false" unique="false" type="BTREE">
+            <column key="resource_id" length="" collation="A" null="false"/>
+        </index>
+      
+        <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" owner="foreign" cardinality="one" />
+        <aggregate alias="UserProfile" class="MODX\Revolution\modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one" />
+        <aggregate alias="Resource" class="MODX\Revolution\modResource" local="resource_id" foreign="id" owner="foreign" cardinality="one"/>        
+    </object>
+
+    <object class="File" table="resource_files" extends="xPDOSimpleObject">
+        <field key="resource_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+        <field key="source_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+        <field key="parent_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+
+        <field key="name" dbtype="varchar" precision="255" phptype="string" null="true" 
+            default=""/>
+        <field key="description" dbtype="text" phptype="string" null="true" 
+            default=""/>
+        <field key="path" dbtype="varchar" precision="255" phptype="string" null="false"/>
+        <field key="file" dbtype="varchar" precision="255" phptype="string" null="false"/>
+        <field key="type" dbtype="varchar" precision="50" phptype="string" null="true" 
+            default=""/>
+        <field key="size" dbtype="int" precision="255" phptype="integer" null="true" 
+            default=""/>
+        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+        <field key="url" dbtype="varchar" precision="255" phptype="string" null="true" 
+            default=""/>
+        <field key="hash" dbtype="char" precision="40" phptype="string" null="true" index="index" 
+            default=""/>
+        <field key="orig_hash" dbtype="char" precision="40" phptype="string" null="true" index="index" 
+            default=""/>
+        <field key="properties" dbtype="text" phptype="json" null="true" 
+            default="{}"/>
+
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"/>
+
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="updatedby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"/>
+
+        <field key="deleted" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" 
+            default="0"/>
+        <field key="deletedon" dbtype="datetime" phptype="datetime" null="true"/>
+        <field key="deletedby" dbtype="int" precision="10" phptype="integer" null="true"  />
+
+        <index alias="resource_id" name="resource_id" primary="false" unique="false" type="BTREE">
+            <column key="resource_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="parent_Id" name="parent_id" primary="false" unique="false" type="BTREE">
+            <column key="parent_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="type" name="type" primary="false" unique="false" type="BTREE">
+            <column key="type" length="" collation="A" null="false"/>
+        </index>
+        <index alias="hash" name="hash" primary="false" unique="false" type="BTREE">
+            <column key="hash" length="" collation="A" null="false"/>
+        </index>
+
+        <aggregate alias="Parent" class="App\Model\Resource\File" local="parent_id" foreign="id" cardinality="one" 
+            owner="foreign"/>
+        <aggregate alias="Children" class="App\Model\Resource\File" local="id" foreign="parent_id" cardinality="many"
+            owner="local"/>
+        <aggregate alias="Resource" class="MODX\Revolution\modResource" local="resource_id" foreign="id" cardinality="one" 
+            owner="foreign"/>
+        <aggregate alias="Source" class="MODX\Revolution\Sources\modMediaSource" local="source_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+    </object>
+</model>

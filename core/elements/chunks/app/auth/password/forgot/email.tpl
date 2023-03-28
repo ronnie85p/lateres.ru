@@ -1,0 +1,1 @@
+Your <a href="{$link}">temp link</a> for recovery password

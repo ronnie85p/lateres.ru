@@ -1,0 +1,1 @@
+Your access code {$data.code} expires until {$data.timestamp | date : 'Y-m-d H:i:s'}

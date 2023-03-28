@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="WF\VirtPage\Model" baseClass="xPDO\Om\xPDOSimpleObject" platform="mysql" defaultEngine="InnoDB" phpdoc-package="WF\VirtPage\Model" version="3.0">
+
+    <object class="Resource" table="virtpage_resources" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk" generated="native"/>
+        <field key="resource_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+        <field key="context_key" dbtype="varchar" precision="100" phptype="string" null="false" default="web" index="index" />
+
+        <field key="uri" dbtype="text" phptype="string" null="true" index="index" />
+        <field key="pagetitle" dbtype="varchar" precision="191" phptype="string" null="false" default="" index="fulltext"/>
+        <field key="longtitle" dbtype="varchar" precision="191" phptype="string" null="false" default="" index="fulltext"/>
+        <field key="description" dbtype="text" phptype="string" null="false" default="" index="fulltext"  />
+
+        <field key="properties" dbtype="text" phptype="json" null="true"/>
+
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="updatedby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+
+        <field key="expires" dbtype="datetime" phptype="datetime" null="true" />
+
+        <index alias="PRIMARY" name="PRIMARY" primary="true" unique="true" type="BTREE">
+            <column key="id" length="" collation="A" null="false" />
+        </index>
+        <index alias="resource_id" name="resource_id" primary="false" unique="false" type="BTREE">
+            <column key="resource_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="createdby" name="createdby" primary="false" unique="false" type="BTREE">
+            <column key="createdby" length="" collation="A" null="false"/>
+        </index>
+        <index alias="updatedby" name="updatedby" primary="false" unique="false" type="BTREE">
+            <column key="updatedby" length="" collation="A" null="false"/>
+        </index>
+        <index alias="uri" name="uri" primary="false" unique="false" type="BTREE">
+            <column key="uri" length="191" collation="A" null="true" />
+        </index>
+        <index alias="context_key" name="context_key" primary="false" unique="false" type="BTREE">
+            <column key="context_key" length="" collation="A" null="false" />
+        </index>
+
+        <aggregate alias="Resource" class="MODX\Revolution\modResource" local="resource_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="CreatedBy" class="MODX\Revolution\modUser" local="createdby" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="UpdatedBy" class="MODX\Revolution\modUser" local="updatedby" foreign="id" cardinality="one" 
+            owner="foreign" />
+    </object>
+
+</model>

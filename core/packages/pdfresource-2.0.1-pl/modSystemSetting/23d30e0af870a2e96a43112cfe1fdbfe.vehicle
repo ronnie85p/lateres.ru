@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'pdfresource',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => 'a956b4304ee16cf7de104a6e91732c1e',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => '23d30e0af870a2e96a43112cfe1fdbfe',
+  'native_key' => 'pdfresource.mPDFMethods',
+  'object' => '{"key":"pdfresource.mPDFMethods","value":"[]","xtype":"textfield","namespace":"pdfresource","area":"pdf","editedon":null}',
+);

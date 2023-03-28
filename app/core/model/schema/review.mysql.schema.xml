@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model 
+    package="App\Model\Review" 
+    baseClass="xPDO\Om\xPDOSimpleObject" 
+    platform="mysql" 
+    defaultEngine="InnoDB" 
+    phpdoc-package="App\Model\Review" 
+    version="3.0">
+
+    <object class="Thread" table="review_threads" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="resource_id" dbtype="int" precision="11" phptype="integer" null="false" 
+            default="0" />
+        
+        <field key="rating" dbtype="decimal" precision="12,6" phptype="float" null="false" 
+            default="0" />
+        <field key="rating_wilson" dbtype="decimal" precision="12,6" phptype="float" null="false" 
+            default="0" />
+        <field key="messages" dbtype="int" precision="11" phptype="integer" null="false" 
+            default="0" />
+        <field key="properties" dbtype="text" phptype="json" null="true" />
+
+        <index alias="resource_id" name="resource_id" primary="false" unique="false" type="BTREE">
+            <column key="resource_id" length="" collation="A" null="false" />
+        </index>
+
+        <aggregate alias="Resource" class="MODX\Revolution\modResource" local="resource_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <composite alias="Messages" class="App\Model\Review\Message" local="id" foreign="thread_id" cardinality="many" 
+            owner="local" />
+    </object>
+
+    <object class="Vote" table="review_votes" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="rating" dbtype="decimal" precision="12,6" phptype="float" null="false" 
+            default="0" />
+
+        <aggregate alias="Message" class="App\Model\Review\Message" local="id" foreign="vote_id" cardinality="one" 
+            owner="foreign" />
+    </object>
+
+    <object class="Message" table="review_messages" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="thread_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" 
+            default="0" />
+        <field key="vote_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" 
+            default="0" />
+        <field key="author_id" dbtype="int" precision="11" phptype="integer" null="false" 
+            default="0" />
+        <field key="reply_author_id" dbtype="int" precision="11" phptype="integer" null="false" 
+            default="0" />
+
+        <field key="subject" dbtype="varchar" precision="255" phptype="string" null="false" 
+            default="" />
+        <field key="text" dbtype="text" phptype="string" null="false" 
+            default="" />
+
+        <field key="likes" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" 
+            default="0" />
+        <field key="dislikes" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" 
+            default="0" />
+
+        <field key="datetime" dbtype="datetime" phptype="datetime" null="true" />
+
+        <field key="notify" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" 
+            default="0" />
+        <field key="notify_datetime" dbtype="datetime" phptype="datetime" null="true" />
+
+        <field key="published" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false"
+            default="0" />
+        <field key="publishedon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="publishedby" dbtype="int" precision="10" phptype="integer" null="true" 
+            default="0" />
+        
+        <field key="editedon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="editedby" dbtype="int" precision="10" phptype="integer" null="true" 
+            default="0" />
+
+        <field key="deleted" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" 
+            default="0" />
+        <field key="deletedon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="deletedby" dbtype="int" precision="10" phptype="integer" null="true" 
+            default="0" />
+
+        <field key="properties" dbtype="text" phptype="json" null="true" />
+
+        <index alias="thread_id" name="thread_id" primary="false" unique="false" type="BTREE">
+            <column key="thread_id" length="" collation="A" null="false" />
+        </index>
+        <index alias="vote_id" name="vote_id" primary="false" unique="false" type="BTREE">
+            <column key="vote_id" length="" collation="A" null="false" />
+        </index>
+        <index alias="author_id" name="author_id" primary="false" unique="false" type="BTREE">
+            <column key="author_id" length="" collation="A" null="false" />
+        </index>
+        <index alias="reply_author_id" name="reply_author_id" primary="false" unique="false" type="BTREE">
+            <column key="reply_author_id" length="" collation="A" null="false" />
+        </index>
+
+        <aggregate alias="Thread" class="App\Model\Review\Thread" local="thread_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="Vote" class="App\Model\Review\Vote" local="vote_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="Author" class="App\Model\Review\Author" local="author_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="ReplyAuthor" class="App\Model\Review\Author" local="reply_author_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <composite alias="Answers" class="App\Model\Review\Message" local="author_id" foreign="reply_author_id" cardinality="many" 
+            owner="local" />
+        <composite alias="Actions" class="App\Model\Review\Actions" local="id" foreign="message_id" cardinality="many" 
+            owner="local" />
+        <composite alias="Files" class="App\Model\Review\File" local="id" foreign="message_id" cardinality="many" 
+            owner="local" />
+    </object>
+
+    <object class="Author" table="review_authors" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="user_id" dbtype="int" precision="11" phptype="integer" null="false" 
+            default="0" />
+
+        <field key="fullname" dbtype="varchar" precision="255" phptype="string" null="false" 
+            default="" />
+        <field key="email" dbtype="varchar" precision="255" phptype="string" null="false" 
+            default="" />
+        <field key="mobilephone" dbtype="varchar" precision="255" phptype="string" null="false" 
+            default="" />
+        <field key="ip" dbtype="varchar" precision="46" phptype="string" null="false" 
+            default="" />
+        <field key="user_agent" dbtype="varchar" precision="255" phptype="string" null="true" 
+            default="" />
+        <field key="ssid" dbtype="varchar" precision="128" phptype="string" null="false" 
+            default="" />
+
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false" />
+        </index>
+
+        <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" cardinality="one" owner="foreign" />
+        <aggregate alias="UserProfile" class="MODX\Revolution\modUserProfile" local="user_id" foreign="internalKey" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="Messages" class="App\Model\Review\Message" local="id" foreign="author_id" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="Answers" class="App\Model\Review\Message" local="id" foreign="reply_author_id" cardinality="one" 
+            owner="foreign" />
+    </object>
+
+    <object class="Action" table="review_actions" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="user_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" 
+            default="0" />
+        <field key="message_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" 
+            default="0" />
+
+        <field key="like_or_dislike" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" 
+            default="0" />
+
+        <field key="ip" dbtype="varchar" precision="46" phptype="string" null="false" 
+            default="" />
+        <field key="ssid" dbtype="varchar" precision="128" phptype="string" null="false" 
+            default="" />
+        <field key="user_agent" dbtype="varchar" precision="255" phptype="string" null="true" 
+            default="" />
+
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false" />
+        </index>
+        <index alias="message_id" name="message_id" primary="false" unique="false" type="BTREE">
+            <column key="message_id" length="" collation="A" null="false" />
+        </index>
+
+        <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="UserProfile" class="MODX\Revolution\modUserProfile" local="user_id" foreign="internalKey" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="Message" class="App\Model\Review\Message" local="message_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+    </object>
+
+    <object class="File" table="review_files" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="message_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" 
+            default="0" />
+        <field key="source_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
+            default="1" />
+
+        <field key="name" dbtype="varchar" precision="255" phptype="string" null="true"
+            default="" />
+        <field key="description" dbtype="text" phptype="string" null="true" 
+            default="" />
+
+        <field key="file" dbtype="varchar" precision="255" phptype="string" null="false" />
+        <field key="type" dbtype="varchar" precision="50" phptype="string" null="true" />
+        <field key="size" dbtype="int" precision="255" phptype="integer" null="true" />
+
+        <field key="url" dbtype="varchar" precision="255" phptype="string" null="true" 
+            default="" />
+        <field key="hash" dbtype="char" precision="40" phptype="string" null="true" index="index" 
+            default="" />
+        <field key="orig_hash" dbtype="char" precision="40" phptype="string" null="true" index="index" 
+             default="" />
+
+        <index alias="message_id" name="message_id" primary="false" unique="false" type="BTREE">
+            <column key="message_id" length="" collation="A" null="false" />
+        </index>
+        <index alias="source_id" name="source_id" primary="false" unique="false" type="BTREE">
+            <column key="source_id" length="" collation="A" null="false" />
+        </index>
+
+        <aggregate alias="Message" class="App\Model\Review\Message" local="message_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="Source" class="MODX\Revolution\Sources\modMediaSource" local="source_d" foreign="id" cardinality="one" 
+            owner="foreign" />
+    </object>
+</model>

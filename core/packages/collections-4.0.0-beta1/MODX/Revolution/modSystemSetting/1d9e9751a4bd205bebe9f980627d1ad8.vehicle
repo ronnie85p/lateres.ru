@@ -1,0 +1,12 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'vehicle_class' => 'xPDO\\Transport\\xPDOObjectVehicle',
+  'guid' => 'aeb941ee474ee880ae74f0084df4a20d',
+  'package' => '',
+  'class' => 'MODX\\Revolution\\modSystemSetting',
+  'signature' => '1d9e9751a4bd205bebe9f980627d1ad8',
+  'native_key' => 'mgr_tree_icon_collectioncontainer',
+  'object' => '{"key":"mgr_tree_icon_collectioncontainer","value":"collectioncontainer","xtype":"textfield","namespace":"core","area":"manager","editedon":null}',
+);

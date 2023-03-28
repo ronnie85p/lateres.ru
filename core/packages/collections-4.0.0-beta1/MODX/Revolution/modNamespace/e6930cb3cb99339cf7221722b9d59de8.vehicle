@@ -1,0 +1,45 @@
+<?php return array (
+  'unique_key' => 'name',
+  'preserve_keys' => true,
+  'update_object' => true,
+  'resolve' => 
+  array (
+    0 => 
+    array (
+      'type' => 'file',
+      'body' => '{"source":"collections-4.0.0-beta1\\/MODX\\/Revolution\\/modNamespace\\/e6930cb3cb99339cf7221722b9d59de8\\/0\\/","target":"return MODX_CORE_PATH . \'components\\/\';","name":"collections"}',
+    ),
+    1 => 
+    array (
+      'type' => 'file',
+      'body' => '{"source":"collections-4.0.0-beta1\\/MODX\\/Revolution\\/modNamespace\\/e6930cb3cb99339cf7221722b9d59de8\\/1\\/","target":"return MODX_ASSETS_PATH . \'components\\/\';","name":"collections"}',
+    ),
+    2 => 
+    array (
+      'type' => 'php',
+      'body' => '{"type":"php","source":"collections-4.0.0-beta1\\/MODX\\/Revolution\\/modNamespace\\/e6930cb3cb99339cf7221722b9d59de8.gpm.resolve.bootstrap.resolver","name":"gpm.resolve.bootstrap"}',
+    ),
+    3 => 
+    array (
+      'type' => 'file',
+      'body' => '{"source":"collections-4.0.0-beta1\\/MODX\\/Revolution\\/modNamespace\\/e6930cb3cb99339cf7221722b9d59de8\\/3\\/","target":"return MODX_CORE_PATH . \'components\\/collections\\/docs\\/\';","name":"README.md"}',
+    ),
+    4 => 
+    array (
+      'type' => 'file',
+      'body' => '{"source":"collections-4.0.0-beta1\\/MODX\\/Revolution\\/modNamespace\\/e6930cb3cb99339cf7221722b9d59de8\\/4\\/","target":"return MODX_CORE_PATH . \'components\\/collections\\/docs\\/\';","name":"LICENSE.md"}',
+    ),
+    5 => 
+    array (
+      'type' => 'file',
+      'body' => '{"source":"collections-4.0.0-beta1\\/MODX\\/Revolution\\/modNamespace\\/e6930cb3cb99339cf7221722b9d59de8\\/5\\/","target":"return MODX_CORE_PATH . \'components\\/collections\\/docs\\/\';","name":"CHANGELOG.md"}',
+    ),
+  ),
+  'vehicle_class' => 'xPDO\\Transport\\xPDOObjectVehicle',
+  'guid' => 'f325b28d9665ba97c0837bfa8e944f17',
+  'package' => '',
+  'class' => 'MODX\\Revolution\\modNamespace',
+  'signature' => 'e6930cb3cb99339cf7221722b9d59de8',
+  'native_key' => 'collections',
+  'object' => '{"name":"collections","path":"{core_path}components\\/collections\\/","assets_path":"{assets_path}components\\/collections\\/"}',
+);

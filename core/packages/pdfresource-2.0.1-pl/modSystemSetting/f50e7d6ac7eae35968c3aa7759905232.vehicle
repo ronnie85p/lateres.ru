@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'pdfresource',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '014b2d5820b15c13b33c960c03fecf10',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => 'f50e7d6ac7eae35968c3aa7759905232',
+  'native_key' => 'pdfresource.processTVs',
+  'object' => '{"key":"pdfresource.processTVs","value":true,"xtype":"combo-boolean","namespace":"pdfresource","area":"template","editedon":null}',
+);

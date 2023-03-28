@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model 
+    package="App\Model\Profile" 
+    baseClass="xPDO\Om\xPDOSimpleObject" 
+    platform="mysql" 
+    defaultEngine="InnoDB" 
+    phpdoc-package="App\Model\Profile" 
+    version="3.0">
+   
+    <object class="Phone" table="profile_phones" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="id" dbtype="varchar" precision="15" phptype="string" null="false"/>
+	    <field key="user_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
+	    
+        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" 
+            default="0" />
+        <field key="is_default" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" 
+            default="0" />
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true"/> 
+
+	    <field key="text" dbtype="varchar" precision="35" phptype="string" null="true" 
+            default="" />
+	    <field key="country_code" dbtype="varchar" precision="3" phptype="string" null="true" 
+            default="" />
+        <field key="comment" dbtype="text" phptype="string" null="true" 
+            default=""/>
+        <field key="properties" dbtype="text" phptype="json" null="true" 
+            default="{}" />
+
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+      
+        <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="UserProfile" class="MODX\Revolution\modUserProfile" local="user_id" foreign="internalKey"  cardinality="one"  
+            owner="foreign"/>
+        <composite alias="Messengers" class="App\Model\Profile\Messenger" local="id" foreign="phone_id" cardinality="many" 
+            owner="local"/>
+    </object>
+    
+    <object class="Messenger" table="profile_messengers" extends="xPDO\Om\xPDOSimpleObject">
+	    <field key="phone_id" dbtype="varchar" precision="15" phptype="string" null="false"/>
+	    
+	    <field key="name" dbtype="varchar" precision="15" phptype="string" null="true" 
+            default="" />
+        <field key="icon" dbtype="varchar" precision="255" phptype="string" null="true" 
+            default="" />
+	    <field key="url" dbtype="varchar" precision="255" phptype="string" null="true" 
+            default="" />
+        <field key="properties" dbtype="text" phptype="json" null="true"
+            default="{}" />
+	    
+        <index alias="phone_id" name="phone_id" primary="false" unique="false" type="BTREE">
+            <column key="phone_id" length="" collation="A" null="false"/>
+        </index>
+      
+        <composite alias="Phone" class="App\Model\Profile\Phone" local="phone_id" foreign="id" cardinality="one" owner="local"/>
+    </object>
+
+    <object class="Address" table="profile_addresses" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+        
+        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" 
+            default="0" />
+
+        <field key="title" dbtype="varchar" precision="150" phptype="string" null="true" default=""/>
+        <field key="text" dbtype="text" phptype="string" null="true" default=""/>
+        <field key="country" dbtype="varchar" precision="100" phptype="string" null="true" default=""/>
+        <field key="index" dbtype="varchar" precision="50" phptype="string" null="true" default=""/>
+        <field key="region" dbtype="varchar" precision="100" phptype="string" null="true" default=""/>
+        <field key="district" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+        <field key="city" dbtype="varchar" precision="100" phptype="string" null="true" default=""/>
+        <field key="metro" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+        <field key="street" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+        <field key="building" dbtype="varchar" precision="10" phptype="string" null="true" default=""/>
+        <field key="room" dbtype="varchar" precision="10" phptype="string" null="true" default=""/>
+        <field key="corpus" dbtype="varchar" precision="4" phptype="string" null="true" default=""/>
+        <field key="floor" dbtype="int" precision="3" attributes="unsigned" phptype="integer" null="true" default=""/>
+        <field key="premise" dbtype="varchar" precision="10" phptype="string" null="true" default=""/>
+        <field key="coords" dbtype="varchar" precision="25" phptype="string" null="true" default=""/>
+        <field key="map_zoom" dbtype="int" precision="2" phptype="integer" attributes="unsigned" null="true" default="0"/>
+      
+        <field key="comment" dbtype="text" phptype="string" null="true" 
+            default=""/>
+        <field key="properties" dbtype="text" phptype="json" null="true" 
+            default="{}"/>
+        
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true"/>
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true"/>
+        
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+        
+        <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" cardinality="one"
+            owner="foreign" />
+        <aggregate alias="UserProfile" class="MODX\Revolution\modUserProfile" local="user_id" foreign="internalKey" cardinality="one" 
+            owner="foreign" />
+    </object>
+
+    <object class="Company" table="profile_companies" extends="xPDO\Om\xPDOSimpleObject">
+	    <field key="user_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
+	   
+        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" 
+            default="0" />
+
+	    <field key="name" dbtype="varchar" precision="35" phptype="string" null="true" default=""/>
+	    <field key="inn" dbtype="varchar" precision="35" phptype="string" null="true" default=""/>
+	    <field key="ogrn" dbtype="varchar" precision="35" phptype="string" null="true" default=""/>
+	    <field key="kpp" dbtype="varchar" precision="35" phptype="string" null="true" default=""/>
+	    <field key="phone" dbtype="varchar" precision="35" phptype="string" null="true" default=""/>
+	    
+        <field key="address_required" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" 
+            default="0" />
+	    <field key="address_text" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+	    <field key="address_country" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+	    <field key="address_region" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+	    <field key="address_city" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+	    <field key="address_index" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+	    <field key="address_street" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+	    <field key="address_building" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+	    <field key="address_room" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+	    <field key="address_corpus" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+	    <field key="address_floor" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+	    <field key="address_premise" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+	    
+        <field key="comment" dbtype="text" phptype="string" null="true" 
+            default=""/>
+        <field key="properties" dbtype="text" phptype="json" null="true" 
+            default="{}"/>
+
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true"/>
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true"/>
+
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+	    
+	    <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" cardinality="one"
+            owner="foreign" />
+        <aggregate alias="UserProfile" class="MODX\Revolution\modUserProfile" local="user_id" foreign="internalKey" cardinality="one"
+            owner="foreign" />
+    </object>
+
+    <object class="Passport" table="profile_passports" extends="xPDO\Om\xPDOSimpleObject">
+	    <field key="user_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
+	   
+	    <field key="gender" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="true" default="0"/>
+	    <field key="date_of_birth" dbtype="datetime" phptype="datetime" />
+	    <field key="place_of_birth" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+	    <field key="sitizenship" dbtype="varchar" precision="155" phptype="string" null="true" default=""/>
+	    <field key="seria" dbtype="varchar" precision="4" phptype="string" null="true" default=""/>
+        <field key="num" dbtype="varchar" precision="6" phptype="string" null="true" default=""/>
+        <field key="date_issued" dbtype="datetime" phptype="datetime" />
+        <field key="dep_issued" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+        <field key="dep_code" dbtype="varchar" precision="10" phptype="string" null="true" default=""/>
+        <field key="place_of_reg" dbtype="varchar" precision="255" phptype="string" null="true" default=""/> 
+
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+	    
+	    <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" cardinality="one" 
+            owner="foreign"/>
+        <aggregate alias="UserProfile" class="MODX\Revolution\modUserProfile" local="user_id" foreign="internalKey" cardinality="one"
+            owner="foreign" />
+        <composite alias="Files" class="App\Model\Profile\Passport\File" local="id" foreign="passport_id" cardinality="many" 
+            owner="local"/>
+    </object>
+
+    <object class="Passport\File" table="profile_passport_files" extends="xPDOSimpleObject">
+        <field key="id" dbtype="varchar" precision="191" phptype="string" null="true" />
+        <field key="passport_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+        <field key="source_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+        <field key="parent_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+
+        <field key="name" dbtype="varchar" precision="255" phptype="string" null="true" 
+            default=""/>
+        <field key="description" dbtype="text" phptype="string" null="true" 
+            default=""/>
+        <field key="path" dbtype="varchar" precision="255" phptype="string" null="false"/>
+        <field key="file" dbtype="varchar" precision="255" phptype="string" null="false"/>
+        <field key="type" dbtype="varchar" precision="50" phptype="string" null="true" 
+            default=""/>
+        <field key="size" dbtype="int" precision="255" phptype="integer" null="true" 
+            default=""/>
+        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+        <field key="url" dbtype="varchar" precision="255" phptype="string" null="true" 
+            default=""/>
+        <field key="hash" dbtype="char" precision="40" phptype="string" null="true" index="index" 
+            default=""/>
+        <field key="orig_hash" dbtype="char" precision="40" phptype="string" null="true" index="index" 
+            default=""/>
+        <field key="properties" dbtype="text" phptype="json" null="true" 
+            default="{}"/>
+
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"/>
+
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="updatedby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"/>
+
+        <field key="deleted" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" 
+            default="0"/>
+        <field key="deletedon" dbtype="datetime" phptype="datetime" null="true"/>
+        <field key="deletedby" dbtype="int" precision="10" phptype="integer" null="true"  />
+
+        <index alias="passport_id" name="passport_id" primary="false" unique="false" type="BTREE">
+            <column key="passport_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="parent_Id" name="parent_id" primary="false" unique="false" type="BTREE">
+            <column key="parent_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="type" name="type" primary="false" unique="false" type="BTREE">
+            <column key="type" length="" collation="A" null="false"/>
+        </index>
+        <index alias="hash" name="hash" primary="false" unique="false" type="BTREE">
+            <column key="hash" length="" collation="A" null="false"/>
+        </index>
+
+        <aggregate alias="Parent" class="App\Model\Profile\Passport\File" local="parent_id" foreign="id" cardinality="one" 
+            owner="foreign"/>
+        <aggregate alias="Children" class="App\Model\Profile\Passport\File" local="id" foreign="parent_id" cardinality="many"
+            owner="local"/>
+        <composite alias="Passport" class="App\Model\Profile\Passport" local="passport_id" foreign="id" cardinality="one" 
+            owner="foreign"/>
+        <aggregate alias="Source" class="MODX\Revolution\Sources\modMediaSource" local="source_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+    </object>
+
+    <object class="CreditCard" table="profile_credit_cards" extends="xPDOSimpleObject">
+        <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+
+        <field key="title" dbtype="varchar" precision="255" phptype="string" null="true" 
+            default="" />
+        <field key="name" dbtype="varchar" precision="255" phptype="string" null="true" 
+            default="" />
+        <field key="exp_month" dbtype="varchar" precision="2" phptype="string" null="false" 
+            default="" />
+        <field key="exp_year" dbtype="varchar" precision="4" phptype="string" null="false" 
+            default="" />
+        <field key="brand" dbtype="varchar" precision="20" phptype="string" null="true" 
+            default="" />
+        <field key="country" dbtype="varchar" precision="100" phptype="string" null="true" 
+            default="" />
+        <field key="funding" dbtype="varchar" precision="10" phptype="string" null="true" 
+            default="" />
+        <field key="last4" dbtype="varchar" precision="4" phptype="string" null="true" 
+            default="" />
+        
+        <field key="rank" dbtype="tinyint" precision="1" phptype="integer" attributes="unsigned" null="true" 
+            default="0" />
+        <field key="trust_me" dbtype="tinyint" precision="1" phptype="integer" attributes="unsigned" null="true" 
+            default="0" />
+        
+        <field key="comment" dbtype="text" phptype="string" null="true" 
+            default="" />
+        <field key="properties" dbtype="text" phptype="json" null="true" 
+            default="{}" />
+        
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
+        
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+        
+        <aggregate alias="User" class="modUser" local="user_id" foreign="id" cardinality="one" 
+            owner="foreign"/>
+        <aggregate alias="UserProfile" class="modUserProfile" local="user_id" foreign="internalKey" cardinality="one" 
+            owner="foreign"/>
+    </object>
+</model>

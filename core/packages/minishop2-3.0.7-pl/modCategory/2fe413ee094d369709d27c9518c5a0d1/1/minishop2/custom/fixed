@@ -1,0 +1,43 @@
+minishop2.class.php
+ getService -> services->get('error')
+ getService -> services->get('lexicon')
+ getService -> services->get('mail');
+ array -> []
+
+mscategory.class.php 
+ array -> []
+
+mscategoryoption.class.php 
+ array -> []
+
+mscustomerprofile.class.php 
+ array -> []
+
+msdelivery.class.php 
+ getServices -> services->get('minishop2');
+ array -> []
+
+msoption.class.php 
+ array -> []
+
+msorder.class.php
+ array -> []
+
+mspayment.class.php
+ getService -> services->get('minishop2')
+
+msproduct.class.php
+ getService -> services->get('minishop2')
+ array -> []
+
+msproductdata.class.php
+ getService -> services->get('minishop2')
+ array -> []
+
+msproductfile.class.php 
+ array -> []
+ getServices -> services->get('minishop2');
+ getServices -> services->get('phpthumb');
+
+msvendor.class.php 
+ array -> []

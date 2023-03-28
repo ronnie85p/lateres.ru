@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'pdfresource',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '95f783d47183b0b01bc66637dab8895d',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => '866ea7cf27e5cc636dc349dbb22e7ba1',
+  'native_key' => 'pdfresource.pdfTvLive',
+  'object' => '{"key":"pdfresource.pdfTvLive","value":"live_pdf","xtype":"textfield","namespace":"pdfresource","area":"resource","editedon":null}',
+);

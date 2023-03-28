@@ -1,0 +1,159 @@
+[
+  {
+    "id": 1,
+    "user_id": 0,
+    "num": "20230223",
+    "createdon": "2023-02-23 08:27",
+    "cost": "3 585.00",
+    "cart_cost": "2 245.00",
+    "delivery_cost": "1 000.00",
+    "sales_tax": "340.00",
+    "weight": 0,
+    "order_comment": "",
+
+    "customer": {
+      "fullname": "Иванов Иван Иваныч",
+      "mobilephone": "",
+      "type": 1,
+      "company": {
+        "text": "OOO Партнер, ИНН 1111111, КПП 22222222, ОГРН(ИП) 3333333333",
+        "name": "",
+        "inn": "",
+        "kpp": "",
+        "ogrn": "",
+        "phone": "",
+        "address_required": 1,
+        "address_country": "",
+        "address_region": "",
+        "address_city": "",
+        "address_street": "",
+        "address_building": "",
+        "address_floor": "",
+        "address_corpus": "",
+        "address_premise": "",
+        "address_room": ""
+      }
+    },
+
+    "delivery": {
+      "id": 1,
+      "name": "Транспорт компании Латерес"
+    },
+
+    "payment": {
+      "id": 1,
+      "name": "Безнал рассчет"
+    },
+
+    "delivery_car": {
+      "id": 1,
+      "zone": {}
+    },
+
+    "address": {
+      "text": "Россия, Московская область, город Солнечногорск, 16"
+    },
+
+    "delivery_car_cost": 0,
+    "delivery_car_is_min_cost": true,
+    "delivery_cars": 1,
+    "delivery_distance": 0,
+    "delivery_datetime": "",
+
+    "status": {
+      "name": "Новый"
+    },
+    "user": {
+      "fullname": "Иванов Иван Иваныч"
+    },
+    "products": [
+      {
+        "id": 1,
+        "order_id": 1,
+        "product_id": 183,
+        "name": "Блок 200×200×400 М100 двухщелевой",
+        "description": "Двухщелевой блок (пескоцементный), марка прочности: М100, размер: 390×190×188 мм",
+        "cost": "75.00.00",
+        "price": "75.00.00",
+        "weight": "17.000",
+        "image": "https://www.lateres.ru/assets/uploads/product-285/product-285-6.jpg",
+        "options": {},
+        "count": 1
+      },
+      {
+        "id": 2,
+        "order_id": 1,
+        "product_id": 138,
+        "name": "Блок 390×120×188 М200 Красный",
+        "description": "Облицовочный камень (лицевой), марка прочности: М200, размер: 390×120×188 мм, цвет: Красный",
+        "cost": "44.00",
+        "price": "44.00",
+        "weight": "14.000",
+        "image": "https://www.lateres.ru/assets/uploads/product-25/product-25-2.jpg",
+        "options": {},
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "user_id": 0,
+    "num": "20230223",
+    "createdon": "2023-02-23 08:27",
+    "cost": 0,
+    "cart_cost": 0,
+    "delivery_cost": 0,
+    "weight": 0,
+    "order_comment": "",
+
+    "customer": {
+      "fullname": "Иванов Иван Иваныч",
+      "mobilephone": "",
+      "type": 1,
+      "company": {
+        "text": "OOO Партнер, ИНН 1111111, КПП 22222222, ОГРН(ИП) 3333333333",
+        "name": "",
+        "inn": "",
+        "kpp": "",
+        "ogrn": "",
+        "phone": "",
+        "address_required": 1,
+        "address_country": "",
+        "address_region": "",
+        "address_city": "",
+        "address_street": "",
+        "address_building": "",
+        "address_floor": "",
+        "address_corpus": "",
+        "address_premise": "",
+        "address_room": ""
+      }
+    },
+
+    "delivery": {
+      "id": 1,
+      "name": "Транспорт компании Латерес"
+    },
+
+    "payment": {
+      "id": 1,
+      "name": "Безнал рассчет"
+    },
+
+    "delivery_car": {
+      "id": 1,
+      "zone": {}
+    },
+
+    "delivery_car_cost": 0,
+    "delivery_car_is_min_cost": true,
+    "delivery_cars": 1,
+    "delivery_distance": 0,
+    "delivery_datetime": "",
+
+    "status": {},
+    "address": {},
+    "user": {},
+    "products": []
+  }
+]

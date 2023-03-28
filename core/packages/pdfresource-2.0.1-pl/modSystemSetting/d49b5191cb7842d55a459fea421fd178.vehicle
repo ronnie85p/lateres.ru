@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'pdfresource',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '631deeb48d059dfe8416d4a622c564ef',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => 'd49b5191cb7842d55a459fea421fd178',
+  'native_key' => 'pdfresource.pdfTpl',
+  'object' => '{"key":"pdfresource.pdfTpl","value":"tplPDF","xtype":"textfield","namespace":"pdfresource","area":"template","editedon":null}',
+);

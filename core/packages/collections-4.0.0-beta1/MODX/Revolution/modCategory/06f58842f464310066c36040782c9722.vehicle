@@ -1,0 +1,443 @@
+<?php return array (
+  'unique_key' => 'category',
+  'preserve_keys' => false,
+  'update_object' => true,
+  'related_objects' => 
+  array (
+    'Snippets' => 
+    array (
+      'b5236867072edfe9f073b7f8f241c797' => 
+      array (
+        'preserve_keys' => false,
+        'update_object' => true,
+        'unique_key' => 'name',
+        'class' => 'MODX\\Revolution\\modSnippet',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"getSelections","description":"","editor_type":0,"category":0,"cache_type":0,"snippet":"\\/**\\n * getSelections\\n *\\n * DESCRIPTION\\n *\\n * This snippet is a helper for getResources call.\\n * It will allows you to select all linked resources under specific Selection with a usage of getResources snippet.\\n * Returns distinct list of linked Resources for given Selections\\n *\\n * getResources are required\\n *\\n * PROPERTIES:\\n *\\n * &sortdir                 string  optional    Direction of sorting by linked resource\'s menuindex. Default: ASC\\n * &selections              string  optional    Comma separated list of Selection IDs for which should be retrieved linked resources. Default: empty string\\n * &getResourcesSnippet     string  optional    Name of getResources snippet. Default: getResources\\n *\\n * USAGE:\\n *\\n * [[getSelections? &selections=`1` &tpl=`rowTpl`]]\\n * [[getSelections? &selections=`1` &tpl=`rowTpl` &sortby=`RAND()`]]\\n *\\n *\\n * @var \\\\MODX\\\\Revolution\\\\modX $modx\\n * @var array $scriptProperties\\n *\\/\\n\\nuse Collections\\\\Model\\\\CollectionSelection;\\nuse Collections\\\\Utils;\\nuse MODX\\\\Revolution\\\\modSnippet;\\n\\n\\/** @var Collections\\\\Collections $collections *\\/\\n$collections = $modx->services->get(\'collections\');\\nif (!($collections instanceof Collections\\\\Collections)) return \'\';\\n\\n$getResourcesSnippet = $modx->getOption(\'getResourcesSnippet\', $scriptProperties, \'getResources\');\\n\\n$getResourcesExists = $modx->getCount(modSnippet::class, [\'name\' => $getResourcesSnippet]);\\nif ($getResourcesExists == 0) return \'getResources not found\';\\n\\n$sortDir = strtolower($modx->getOption(\'sortdir\', $scriptProperties, \'asc\'));\\n$selections = $modx->getOption(\'selections\', $scriptProperties, \'\');\\n$sortBy = $modx->getOption(\'sortby\', $scriptProperties, \'\');\\n$excludeToPlaceholder = $modx->getOption(\'excludeToPlaceholder\', $scriptProperties, \'\');\\n\\n$selections = Utils::explodeAndClean($selections);\\n\\nif ($sortDir != \'asc\') {\\n    $sortDir = \'desc\';\\n}\\n\\n$linkedResourcesQuery = $modx->newQuery(CollectionSelection::class);\\n\\nif (!empty($selections)) {\\n    $linkedResourcesQuery->where([\\n        \'collection:IN\' => $selections\\n    ]);\\n}\\n\\nif ($sortBy == \'\') {\\n    $linkedResourcesQuery->sortby(\'menuindex\', $sortDir);\\n}\\n\\n$linkedResourcesQuery->select([\\n    \'resource\' => \'DISTINCT(resource)\',\\n    \'menuindex\' => \'menuindex\'\\n]);\\n\\n$linkedResourcesQuery->prepare();\\n\\n$linkedResourcesQuery->stmt->execute();\\n\\n$linkedResources = $linkedResourcesQuery->stmt->fetchAll(PDO::FETCH_COLUMN, 0);\\n\\nif (!empty($excludeToPlaceholder)) {\\n    $excludeResources = [];\\n    foreach($linkedResources as $res) {\\n        $excludeResources[] = \'-\' . $res;\\n    }\\n    $excludeResources = implode(\',\', $excludeResources);\\n    $modx->setPlaceholder($excludeToPlaceholder, $excludeResources);\\n}\\n\\n$linkedResources = implode(\',\', $linkedResources);\\n\\n$properties = $scriptProperties;\\nunset($properties[\'selections\']);\\n\\n$properties[\'resources\'] = $linkedResources;\\n$properties[\'parents\'] = ($properties[\'getResourcesSnippet\'] == \'pdoResources\') ? 0 : -1;\\n\\nif ($sortBy == \'\') {\\n    $properties[\'sortby\'] = \'FIELD(modResource.id, \' . $linkedResources . \' )\';\\n    $properties[\'sortdir\'] = \'asc\';\\n}\\n\\nreturn $modx->runSnippet($getResourcesSnippet, $properties);","locked":0,"properties":"a:0:{}","moduleguid":"","static":0,"static_file":"","content":"\\/**\\n * getSelections\\n *\\n * DESCRIPTION\\n *\\n * This snippet is a helper for getResources call.\\n * It will allows you to select all linked resources under specific Selection with a usage of getResources snippet.\\n * Returns distinct list of linked Resources for given Selections\\n *\\n * getResources are required\\n *\\n * PROPERTIES:\\n *\\n * &sortdir                 string  optional    Direction of sorting by linked resource\'s menuindex. Default: ASC\\n * &selections              string  optional    Comma separated list of Selection IDs for which should be retrieved linked resources. Default: empty string\\n * &getResourcesSnippet     string  optional    Name of getResources snippet. Default: getResources\\n *\\n * USAGE:\\n *\\n * [[getSelections? &selections=`1` &tpl=`rowTpl`]]\\n * [[getSelections? &selections=`1` &tpl=`rowTpl` &sortby=`RAND()`]]\\n *\\n *\\n * @var \\\\MODX\\\\Revolution\\\\modX $modx\\n * @var array $scriptProperties\\n *\\/\\n\\nuse Collections\\\\Model\\\\CollectionSelection;\\nuse Collections\\\\Utils;\\nuse MODX\\\\Revolution\\\\modSnippet;\\n\\n\\/** @var Collections\\\\Collections $collections *\\/\\n$collections = $modx->services->get(\'collections\');\\nif (!($collections instanceof Collections\\\\Collections)) return \'\';\\n\\n$getResourcesSnippet = $modx->getOption(\'getResourcesSnippet\', $scriptProperties, \'getResources\');\\n\\n$getResourcesExists = $modx->getCount(modSnippet::class, [\'name\' => $getResourcesSnippet]);\\nif ($getResourcesExists == 0) return \'getResources not found\';\\n\\n$sortDir = strtolower($modx->getOption(\'sortdir\', $scriptProperties, \'asc\'));\\n$selections = $modx->getOption(\'selections\', $scriptProperties, \'\');\\n$sortBy = $modx->getOption(\'sortby\', $scriptProperties, \'\');\\n$excludeToPlaceholder = $modx->getOption(\'excludeToPlaceholder\', $scriptProperties, \'\');\\n\\n$selections = Utils::explodeAndClean($selections);\\n\\nif ($sortDir != \'asc\') {\\n    $sortDir = \'desc\';\\n}\\n\\n$linkedResourcesQuery = $modx->newQuery(CollectionSelection::class);\\n\\nif (!empty($selections)) {\\n    $linkedResourcesQuery->where([\\n        \'collection:IN\' => $selections\\n    ]);\\n}\\n\\nif ($sortBy == \'\') {\\n    $linkedResourcesQuery->sortby(\'menuindex\', $sortDir);\\n}\\n\\n$linkedResourcesQuery->select([\\n    \'resource\' => \'DISTINCT(resource)\',\\n    \'menuindex\' => \'menuindex\'\\n]);\\n\\n$linkedResourcesQuery->prepare();\\n\\n$linkedResourcesQuery->stmt->execute();\\n\\n$linkedResources = $linkedResourcesQuery->stmt->fetchAll(PDO::FETCH_COLUMN, 0);\\n\\nif (!empty($excludeToPlaceholder)) {\\n    $excludeResources = [];\\n    foreach($linkedResources as $res) {\\n        $excludeResources[] = \'-\' . $res;\\n    }\\n    $excludeResources = implode(\',\', $excludeResources);\\n    $modx->setPlaceholder($excludeToPlaceholder, $excludeResources);\\n}\\n\\n$linkedResources = implode(\',\', $linkedResources);\\n\\n$properties = $scriptProperties;\\nunset($properties[\'selections\']);\\n\\n$properties[\'resources\'] = $linkedResources;\\n$properties[\'parents\'] = ($properties[\'getResourcesSnippet\'] == \'pdoResources\') ? 0 : -1;\\n\\nif ($sortBy == \'\') {\\n    $properties[\'sortby\'] = \'FIELD(modResource.id, \' . $linkedResources . \' )\';\\n    $properties[\'sortdir\'] = \'asc\';\\n}\\n\\nreturn $modx->runSnippet($getResourcesSnippet, $properties);"}',
+        'guid' => '746a5f5c0c534c43e79e006a9ef1a5c5',
+        'native_key' => NULL,
+        'signature' => 'eca00d6502217ee364ce3b4d29aca696',
+      ),
+    ),
+    'Plugins' => 
+    array (
+      'cbc43f34f2d88296778c827f68e749b6' => 
+      array (
+        'unique_key' => 'name',
+        'preserve_keys' => false,
+        'update_object' => true,
+        'related_objects' => 
+        array (
+          'PluginEvents' => 
+          array (
+            '7cd4162a95d063c980f46c0bbe0cfddc' => 
+            array (
+              'preserve_keys' => true,
+              'update_object' => true,
+              'unique_key' => 
+              array (
+                0 => 'pluginid',
+                1 => 'event',
+              ),
+              'related_objects' => true,
+              'related_object_attributes' => 
+              array (
+                'PropertySet' => 
+                array (
+                  'unique_key' => 'name',
+                  'preserve_keys' => false,
+                  'update_object' => false,
+                ),
+              ),
+              'class' => 'MODX\\Revolution\\modPluginEvent',
+              'object' => '{"pluginid":0,"event":"OnManagerPageInit","priority":0,"propertyset":0}',
+              'guid' => 'efbce12c74ec2364587a3e798df8bd7b',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'OnManagerPageInit',
+              ),
+              'signature' => '6620d28f5234f38941841f63d6b9f1d7',
+            ),
+            'a2115a3d84f7dc26f5498b7f41e87e6f' => 
+            array (
+              'preserve_keys' => true,
+              'update_object' => true,
+              'unique_key' => 
+              array (
+                0 => 'pluginid',
+                1 => 'event',
+              ),
+              'related_objects' => true,
+              'related_object_attributes' => 
+              array (
+                'PropertySet' => 
+                array (
+                  'unique_key' => 'name',
+                  'preserve_keys' => false,
+                  'update_object' => false,
+                ),
+              ),
+              'class' => 'MODX\\Revolution\\modPluginEvent',
+              'object' => '{"pluginid":0,"event":"OnBeforeDocFormSave","priority":0,"propertyset":0}',
+              'guid' => '046bd0e785bdc451e0c5b044b23ff600',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'OnBeforeDocFormSave',
+              ),
+              'signature' => '57eba2c158981b5158dc28766a97fb75',
+            ),
+            '68754e020054305d8f80d8c217926ded' => 
+            array (
+              'preserve_keys' => true,
+              'update_object' => true,
+              'unique_key' => 
+              array (
+                0 => 'pluginid',
+                1 => 'event',
+              ),
+              'related_objects' => true,
+              'related_object_attributes' => 
+              array (
+                'PropertySet' => 
+                array (
+                  'unique_key' => 'name',
+                  'preserve_keys' => false,
+                  'update_object' => false,
+                ),
+              ),
+              'class' => 'MODX\\Revolution\\modPluginEvent',
+              'object' => '{"pluginid":0,"event":"OnResourceBeforeSort","priority":0,"propertyset":0}',
+              'guid' => 'f7ddcf347b9b4f6d6af7a45671b16768',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'OnResourceBeforeSort',
+              ),
+              'signature' => 'b6db236fb0257ba81467f7a7fe8e0e1b',
+            ),
+            '2094f2f0d96729013e6029b3aeb8c4cc' => 
+            array (
+              'preserve_keys' => true,
+              'update_object' => true,
+              'unique_key' => 
+              array (
+                0 => 'pluginid',
+                1 => 'event',
+              ),
+              'related_objects' => true,
+              'related_object_attributes' => 
+              array (
+                'PropertySet' => 
+                array (
+                  'unique_key' => 'name',
+                  'preserve_keys' => false,
+                  'update_object' => false,
+                ),
+              ),
+              'class' => 'MODX\\Revolution\\modPluginEvent',
+              'object' => '{"pluginid":0,"event":"OnDocFormPrerender","priority":0,"propertyset":0}',
+              'guid' => '264afc3e4929a8cf310129674462e0c9',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'OnDocFormPrerender',
+              ),
+              'signature' => '81a6057a542bb43d4a086a090bb5dcf2',
+            ),
+            'c30fe7442f923f618f224d3f069902c3' => 
+            array (
+              'preserve_keys' => true,
+              'update_object' => true,
+              'unique_key' => 
+              array (
+                0 => 'pluginid',
+                1 => 'event',
+              ),
+              'related_objects' => true,
+              'related_object_attributes' => 
+              array (
+                'PropertySet' => 
+                array (
+                  'unique_key' => 'name',
+                  'preserve_keys' => false,
+                  'update_object' => false,
+                ),
+              ),
+              'class' => 'MODX\\Revolution\\modPluginEvent',
+              'object' => '{"pluginid":0,"event":"OnBeforeEmptyTrash","priority":0,"propertyset":0}',
+              'guid' => 'c90ba1e704f4d0153cae0cf6b11eb80c',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'OnBeforeEmptyTrash',
+              ),
+              'signature' => '96d322fec62051b9c1e5a3569e520371',
+            ),
+            '015f44cc91c9dab30d5e004ec4f97917' => 
+            array (
+              'preserve_keys' => true,
+              'update_object' => true,
+              'unique_key' => 
+              array (
+                0 => 'pluginid',
+                1 => 'event',
+              ),
+              'related_objects' => true,
+              'related_object_attributes' => 
+              array (
+                'PropertySet' => 
+                array (
+                  'unique_key' => 'name',
+                  'preserve_keys' => false,
+                  'update_object' => false,
+                ),
+              ),
+              'class' => 'MODX\\Revolution\\modPluginEvent',
+              'object' => '{"pluginid":0,"event":"OnDocFormRender","priority":0,"propertyset":0}',
+              'guid' => '9802520a01b7ea96920e994930616766',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'OnDocFormRender',
+              ),
+              'signature' => 'ed081c345ad8a6f774af47fb9751bdee',
+            ),
+            'bdb0e74497b4de242f541fde3c57e8a5' => 
+            array (
+              'preserve_keys' => true,
+              'update_object' => true,
+              'unique_key' => 
+              array (
+                0 => 'pluginid',
+                1 => 'event',
+              ),
+              'related_objects' => true,
+              'related_object_attributes' => 
+              array (
+                'PropertySet' => 
+                array (
+                  'unique_key' => 'name',
+                  'preserve_keys' => false,
+                  'update_object' => false,
+                ),
+              ),
+              'class' => 'MODX\\Revolution\\modPluginEvent',
+              'object' => '{"pluginid":0,"event":"OnManagerPageBeforeRender","priority":0,"propertyset":0}',
+              'guid' => 'f71e99fb12d9f78f14018d108eb0f8ad',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'OnManagerPageBeforeRender',
+              ),
+              'signature' => 'bfedf924296b7d7cafbf0e64bf384ba6',
+            ),
+            '0a8d234c7d6ebfae501f8d2d77311fe9' => 
+            array (
+              'preserve_keys' => true,
+              'update_object' => true,
+              'unique_key' => 
+              array (
+                0 => 'pluginid',
+                1 => 'event',
+              ),
+              'related_objects' => true,
+              'related_object_attributes' => 
+              array (
+                'PropertySet' => 
+                array (
+                  'unique_key' => 'name',
+                  'preserve_keys' => false,
+                  'update_object' => false,
+                ),
+              ),
+              'class' => 'MODX\\Revolution\\modPluginEvent',
+              'object' => '{"pluginid":0,"event":"FredOnBeforeGetResourceTree","priority":0,"propertyset":0}',
+              'guid' => 'dd9b80744ce57f2c8331f6c7f9bd51a4',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'FredOnBeforeGetResourceTree',
+              ),
+              'signature' => '99b9f31405d79277073b2ad3e9675998',
+            ),
+            'f01c1e9a7e903ae89a12c6d9fd5a4d76' => 
+            array (
+              'preserve_keys' => true,
+              'update_object' => true,
+              'unique_key' => 
+              array (
+                0 => 'pluginid',
+                1 => 'event',
+              ),
+              'related_objects' => true,
+              'related_object_attributes' => 
+              array (
+                'PropertySet' => 
+                array (
+                  'unique_key' => 'name',
+                  'preserve_keys' => false,
+                  'update_object' => false,
+                ),
+              ),
+              'class' => 'MODX\\Revolution\\modPluginEvent',
+              'object' => '{"pluginid":0,"event":"FredBeforeRender","priority":0,"propertyset":0}',
+              'guid' => 'e7095f511eb8bd24fe207ce8c4f07e53',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'FredBeforeRender',
+              ),
+              'signature' => '79585ee08ed22546a24c271fe0a4d86b',
+            ),
+            '3b0ff3a013aab9511b2cb14ddcabfcda' => 
+            array (
+              'preserve_keys' => true,
+              'update_object' => true,
+              'unique_key' => 
+              array (
+                0 => 'pluginid',
+                1 => 'event',
+              ),
+              'related_objects' => true,
+              'related_object_attributes' => 
+              array (
+                'PropertySet' => 
+                array (
+                  'unique_key' => 'name',
+                  'preserve_keys' => false,
+                  'update_object' => false,
+                ),
+              ),
+              'class' => 'MODX\\Revolution\\modPluginEvent',
+              'object' => '{"pluginid":0,"event":"OnResourceDuplicate","priority":0,"propertyset":0}',
+              'guid' => '1f7fb2c1863f861f41f2621c14e18b7e',
+              'native_key' => 
+              array (
+                0 => 0,
+                1 => 'OnResourceDuplicate',
+              ),
+              'signature' => '43895a674962b1b72c9d25a93db48168',
+            ),
+          ),
+        ),
+        'related_object_attributes' => 
+        array (
+          'PluginEvents' => 
+          array (
+            'preserve_keys' => true,
+            'update_object' => true,
+            'unique_key' => 
+            array (
+              0 => 'pluginid',
+              1 => 'event',
+            ),
+            'related_objects' => true,
+            'related_object_attributes' => 
+            array (
+              'PropertySet' => 
+              array (
+                'unique_key' => 'name',
+                'preserve_keys' => false,
+                'update_object' => false,
+              ),
+            ),
+          ),
+        ),
+        'class' => 'MODX\\Revolution\\modPlugin',
+        'object' => '{"id":null,"source":0,"property_preprocess":0,"name":"Collections","description":"","editor_type":0,"category":0,"cache_type":0,"plugincode":"\\/**\\n * Collections\\n *\\n * DESCRIPTION\\n *\\n * This plugin inject JS to handle proper working of close buttons in Resource\'s panel (OnDocFormPrerender)\\n * This plugin handles setting proper show_in_tree parameter (OnBeforeDocFormSave, OnResourceSort)\\n *\\n * @var \\\\MODX\\\\Revolution\\\\modX $modx\\n * @var array $scriptProperties\\n *\\/\\n\\nif (!$modx->services->has(\'collections\')) {\\n    return;\\n}\\n\\n\\/** @var Collections\\\\Collections $collections *\\/\\n$collections = $modx->services->get(\'collections\');\\nif (!($collections instanceof Collections\\\\Collections)) return \'\';\\n\\n$className = \\"\\\\\\\\Collections\\\\\\\\Events\\\\\\\\{$modx->event->name}\\";\\nif (class_exists($className)) {\\n    \\/** @var \\\\Collections\\\\Events\\\\Event $handler *\\/\\n    $handler = new $className($modx, $scriptProperties);\\n    $handler->run();\\n}\\n\\nreturn;","locked":0,"properties":"a:0:{}","disabled":0,"moduleguid":"","static":0,"static_file":"","content":"\\/**\\n * Collections\\n *\\n * DESCRIPTION\\n *\\n * This plugin inject JS to handle proper working of close buttons in Resource\'s panel (OnDocFormPrerender)\\n * This plugin handles setting proper show_in_tree parameter (OnBeforeDocFormSave, OnResourceSort)\\n *\\n * @var \\\\MODX\\\\Revolution\\\\modX $modx\\n * @var array $scriptProperties\\n *\\/\\n\\nif (!$modx->services->has(\'collections\')) {\\n    return;\\n}\\n\\n\\/** @var Collections\\\\Collections $collections *\\/\\n$collections = $modx->services->get(\'collections\');\\nif (!($collections instanceof Collections\\\\Collections)) return \'\';\\n\\n$className = \\"\\\\\\\\Collections\\\\\\\\Events\\\\\\\\{$modx->event->name}\\";\\nif (class_exists($className)) {\\n    \\/** @var \\\\Collections\\\\Events\\\\Event $handler *\\/\\n    $handler = new $className($modx, $scriptProperties);\\n    $handler->run();\\n}\\n\\nreturn;"}',
+        'guid' => '240ffb175a842cf40bf8f552da19a70d',
+        'native_key' => NULL,
+        'signature' => '7362b9667b34ba1f6cbb0690314c7ec6',
+      ),
+    ),
+  ),
+  'related_object_attributes' => 
+  array (
+    'Children' => 
+    array (
+      'preserve_keys' => false,
+      'update_object' => true,
+      'unique_key' => 
+      array (
+        0 => 'parent',
+        1 => 'category',
+      ),
+    ),
+    'Snippets' => 
+    array (
+      'preserve_keys' => false,
+      'update_object' => true,
+      'unique_key' => 'name',
+    ),
+    'Chunks' => 
+    array (
+      'preserve_keys' => false,
+      'update_object' => true,
+      'unique_key' => 'name',
+    ),
+    'Templates' => 
+    array (
+      'preserve_keys' => false,
+      'update_object' => true,
+      'unique_key' => 'templatename',
+    ),
+    'TemplateVars' => 
+    array (
+      'preserve_keys' => false,
+      'update_object' => true,
+      'unique_key' => 'name',
+    ),
+    'PropertySets' => 
+    array (
+      'preserve_keys' => false,
+      'update_object' => true,
+      'unique_key' => 'name',
+    ),
+    'Plugins' => 
+    array (
+      'unique_key' => 'name',
+      'preserve_keys' => false,
+      'update_object' => true,
+      'related_objects' => true,
+      'related_object_attributes' => 
+      array (
+        'PluginEvents' => 
+        array (
+          'preserve_keys' => true,
+          'update_object' => true,
+          'unique_key' => 
+          array (
+            0 => 'pluginid',
+            1 => 'event',
+          ),
+          'related_objects' => true,
+          'related_object_attributes' => 
+          array (
+            'PropertySet' => 
+            array (
+              'unique_key' => 'name',
+              'preserve_keys' => false,
+              'update_object' => false,
+            ),
+          ),
+        ),
+      ),
+    ),
+  ),
+  'resolve' => 
+  array (
+    0 => 
+    array (
+      'type' => 'php',
+      'body' => '{"type":"php","snippets":{"getSelections":[]},"chunks":[],"plugins":{"Collections":[]},"templates":[],"source":"collections-4.0.0-beta1\\/MODX\\/Revolution\\/modCategory\\/06f58842f464310066c36040782c9722.gpm.resolve.element_property_set.resolver","name":"gpm.resolve.element_property_set"}',
+    ),
+  ),
+  'vehicle_class' => 'xPDO\\Transport\\xPDOObjectVehicle',
+  'guid' => '2175f3e6f44b81e623e3d108eda77241',
+  'package' => '',
+  'class' => 'MODX\\Revolution\\modCategory',
+  'signature' => '06f58842f464310066c36040782c9722',
+  'native_key' => NULL,
+  'object' => '{"id":null,"parent":0,"category":"Collections","rank":0}',
+);

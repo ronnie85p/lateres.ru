@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model 
+    package="App\Model\Cart" 
+    baseClass="xPDO\Om\xPDOSimpleObject" 
+    platform="mysql" 
+    defaultEngine="InnoDB" 
+    phpdoc-package="App\Model\Cart" 
+    version="3.0">
+
+    <object class="Item" table="cart_items" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="id" dbtype="varchar" precision="40" phptype="string" null="false" />
+	    <field key="user_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
+        <field key="product_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
+
+        <field key="name" dbtype="text" phptype="string" null="true" 
+            default=""/>
+        <field key="image" dbtype="varchar" precision="255" phptype="string" null="true" 
+            default=""/>
+        <field key="price" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="cost" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="count" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false" 
+            default="1"/>
+        <field key="checked" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" 
+            default="0" />
+
+        <field key="createdon" dbtype="datetime" phptype="datetime" />
+        <field key="updatedon" dbtype="datetime" phptype="datetime" />
+        <field key="properties" dbtype="text" phptype="json" null="true"/>
+	    
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="product_id" name="product_id" primary="false" unique="false" type="BTREE">
+            <column key="product_id" length="" collation="A" null="false"/>
+        </index>
+
+        <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" owner="foreign" cardinality="one" />
+        <aggregate alias="UserProfile" class="MODX\Revolution\modUserProfile" local="user_id" foreign="internalKey" owner="foreign" cardinality="one" />
+        <aggregate alias="Product" class="MODX\Revolution\modResource" local="product_id" foreign="id" owner="foreign" cardinality="one" />
+    </object>
+</model>

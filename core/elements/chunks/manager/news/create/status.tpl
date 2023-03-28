@@ -1,0 +1,2 @@
+<h6>Новость <a href="{$id | url}">&laquo;{$pagetitle}&raquo;</a> {$published ? 'опубликована' : 'создана'}!</h6>
+<p><a class="mr-2" href="{370 | url}?id={$.get.id}">Перейти к редактированию</a><a href="{128 | url}"">{$published ? 'Опубликовать' : 'Создать'} ещё</a></p>

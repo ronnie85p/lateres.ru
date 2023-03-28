@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'pdfresource',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => 'b18370e222965d68e20e944b4ca82b33',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => '2dc92d6c65190587108ea15b0a5891aa',
+  'native_key' => 'pdfresource.orientation',
+  'object' => '{"key":"pdfresource.orientation","value":"P","xtype":"textfield","namespace":"pdfresource","area":"pdf","editedon":null}',
+);

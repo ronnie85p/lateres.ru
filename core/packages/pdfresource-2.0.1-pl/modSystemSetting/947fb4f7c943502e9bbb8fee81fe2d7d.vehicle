@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'pdfresource',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '2aaa1b994c3211ede4346f9bf3bcd76a',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => '947fb4f7c943502e9bbb8fee81fe2d7d',
+  'native_key' => 'pdfresource.customFonts',
+  'object' => '{"key":"pdfresource.customFonts","value":"","xtype":"textarea","namespace":"pdfresource","area":"pdf","editedon":null}',
+);

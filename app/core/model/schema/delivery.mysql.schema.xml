@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model 
+    package="App\Model\Delivery" 
+    baseClass="xPDO\Om\xPDOSimpleObject" 
+    platform="mysql" 
+    defaultEngine="InnoDB" 
+    phpdoc-package="App\Model\Delivery" 
+    version="3.0">
+
+    <object class="Car" table="delivery_cars" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="name" dbtype="varchar" precision="100" phptype="string" null="false" 
+            default=""/>
+        <field key="description" dbtype="text" phptype="string" null="true" 
+            default=""/>
+        <field key="image" dbtype="varchar" precision="500" phptype="string" null="true" 
+            default=""/>
+        <field key="weight" dbtype="decimal" precision="12,2" phptype="float" null="false" 
+            default="0"/>
+        <field key="length" dbtype="decimal" precision="12,2" phptype="float" null="false" 
+            default="0"/>
+        <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" 
+            default="1"/>
+        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+
+        <index alias="name" name="name" primary="false" unique="false" type="BTREE">
+            <column key="name" length="" collation="A" null="false"/>
+        </index>
+        <index alias="length" name="length" primary="false" unique="false" type="BTREE">
+            <column key="length" length="" collation="A" null="false"/>
+        </index>
+        <index alias="active" name="active" primary="false" unique="false" type="BTREE">
+            <column key="active" length="" collation="A" null="false"/>
+        </index>
+
+        <composite alias="Zones" class="App\Model\Delivery\Car\Zone" local="id" foreign="car_id" cardinality="many" 
+            owner="local"/>
+    </object>
+
+    <object class="Car\Zone" table="delivery_car_zones" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="car_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+        <field key="zone_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+        
+        <field key="price" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="fixprice" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="minprice" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="maxprice" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="freefrom" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="notprice" dbtype="tinyint" precision="1" phptype="boolean" null="true" 
+            default="0"/>
+        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+
+        <index alias="car_id" name="car_id" primary="false" unique="false" type="BTREE">
+            <column key="car_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="zone_id" name="zone_id" primary="false" unique="false" type="BTREE">
+            <column key="zone_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="price" name="price" primary="false" unique="false" type="BTREE">
+            <column key="price" length="" collation="A" null="false"/>
+        </index>
+        <index alias="fixprice" name="fixprice" primary="false" unique="false" type="BTREE">
+            <column key="fixprice" length="" collation="A" null="false"/>
+        </index>
+        <index alias="minprice" name="minprice" primary="false" unique="false" type="BTREE">
+            <column key="minprice" length="" collation="A" null="false"/>
+        </index>
+        <index alias="maxprice" name="maxprice" primary="false" unique="false" type="BTREE">
+            <column key="maxprice" length="" collation="A" null="false"/>
+        </index>
+        <index alias="freefrom" name="freefrom" primary="false" unique="false" type="BTREE">
+            <column key="freefrom" length="" collation="A" null="false"/>
+        </index>
+        <index alias="notprice" name="notprice" primary="false" unique="false" type="BTREE">
+            <column key="notprice" length="" collation="A" null="false"/>
+        </index>
+
+        <aggregate alias="Car" class="App\Model\Delivery\Car" local="car_id" foreign="id" cardinality="one" owner="foreign"/>
+        <aggregate alias="Zone" class="App\Model\Delivery\Zone" local="zone_id" foreign="id" cardinality="one" owner="foreign"/>
+    </object>
+
+    <object class="Zone" table="delivery_zones" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="name" dbtype="varchar" precision="100" phptype="string" null="false" 
+            default=""/>
+        <field key="description" dbtype="text" phptype="string" null="true" 
+            default=""/>
+        <field key="distanceof" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="distanceup" dbtype="decimal" precision="12,2" phptype="float" null="true" 
+            default="0"/>
+        <field key="polygon" dbtype="tinyint" precision="1" phptype="boolean" null="true" 
+            default="0"/>
+        <field key="polygon_coords" dbtype="text" phptype="string" null="true" 
+            default="[]"/>
+        <field key="polygon_options" dbtype="text" phptype="string" null="true" 
+            default="[]"/>
+        <field key="polygon_properties" dbtype="text" phptype="string" null="true" 
+            default="[]"/>
+        <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" 
+            default="1"/>
+        <field key="rank" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+
+        <index alias="name" name="name" primary="false" unique="false" type="BTREE">
+            <column key="name" length="" collation="A" null="false"/>
+        </index>
+        <index alias="distance" name="distance" primary="false" unique="false" type="BTREE">
+            <column key="distanceof" length="" collation="A" null="false"/>
+            <column key="distanceup" length="" collation="A" null="false"/>
+        </index>
+        <index alias="polygon" name="polygon" primary="false" unique="false" type="BTREE">
+            <column key="polygon" length="" collation="A" null="false"/>
+        </index>
+        <index alias="active" name="active" primary="false" unique="false" type="BTREE">
+            <column key="active" length="" collation="A" null="false"/>
+        </index>
+
+        <composite alias="Cars" class="App\Model\Delivery\Car\Zone" local="id" foreign="zone_id" cardinality="many" 
+            owner="local"/>
+    </object>
+</model>

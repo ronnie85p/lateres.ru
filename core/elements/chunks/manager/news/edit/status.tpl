@@ -1,0 +1,2 @@
+<h6 class="text-success">Новость <a href="{$id | url}">&laquo;{$pagetitle}&raquo;</a> успешно {$.get.published ? 'опубликована' : 'обновлена'}!</h6>
+<p><a class="mr-2" href="{370 | url}?id={$id}">Перейти к редактированию</a><a href="{128 | url}"">Создать новую</a></p>

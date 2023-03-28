@@ -1,0 +1,52 @@
+
+{set $AJAXitems = $_modx->runSnippet('!pdoPage', [
+    'element'         => 'msProducts',
+    'parents'         => $.get['cat'] == '' ? '5' : $.get['cat'],
+    'includeTVs'      => 'img,count_unit,thumb_sm,discount,purchase_price',
+    'tvPrefix'        => '',
+    'includeContent'  => 1,
+    'showHidden'      => 1,
+    'tpl'             => '@FILE chunks/profile/tpl-2019-product.html',
+    'ajaxMode'        => 'button',
+    'limit'           => 9,
+    'pageLimit'       => 9,
+    'maxLimit'        => 32,
+    'sortby'          => 'parent',
+    'sortdir'         => 'DESC',
+    'tplPageWrapper'  => '@INLINE <nav class="pagination"><div class="column"><ul class="pages">[[+pages]]</ul></div>[[+next]]</nav>',
+    'tplPageNext'     => '@INLINE <div class="column text-right hidden-xs-down"><a class="btn btn-outline-secondary btn-sm" href="[[+href]]"><i class="icon-chevron-right"></i></a></div>',
+    'tplPageSkip'     => '@INLINE <li>...</li>',
+])}
+<div class="shop-toolbar padding-bottom-1x mb-2">
+  <div class="column">
+    <div class="shop-sorting">
+      <form action="{$_modx->makeUrl($_modx->resource.id)}?">
+      {if $.get['list'] == true}<input type="hidden" name="list" value="true">{else}{/if}
+      <label for="sorting">Категория:</label>
+        <select class="form-control" name="cat" onchange="this.form.submit()">
+          {if $.get['cat']}<option value="{$.get['cat']}" selected>{$.get['cat'] | resource:'pagetitle'}</option>{else}{/if}
+          {if $.get['cat'] != 5}<option value="5">Все Категории</option>{/if}
+          {$_modx->runSnippet('pdoResources', [
+            'parents'      => '5',
+            'resources'    => $.get['cat'] == '5' ? ' ' : -$.get['cat'],
+            'tpl'   =>'@INLINE <option value="{$id}"}>{$pagetitle}</option>',
+          	'depth' => 2,
+          	'limit' => 20,
+          	'where' => ['class_key' => 'msCategory',
+          	            'template'  => '34'
+          	            ],
+          	'showHidden' => '1',
+          ])}
+        </select>
+    </div>
+    </form>
+  </div>
+</div>
+
+<!-- Products Grid-->
+<div id="pdopage">
+    <div class="rows">
+      {$AJAXitems}
+    </div>
+    {'page.nav' | placeholder}
+  </div>

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Наличными",
+    "logo": "assets/imgs/logo/vk-400-400-01-30x30.jpg",
+    "description": "Оплатите наличными в офисе компании"
+  },
+
+  {
+    "id": 2,
+    "name": "Картой",
+    "logo": "assets/imgs/credit-card-55x28.jpg",
+    "description": "Оплатите картой безопасно"
+  },
+
+  {
+    "id": 3,
+    "name": "Безнал расчет",
+    "logo": "assets/imgs/cards/sh.png",
+    "description": "Оплатите на расчетный счет компании"
+  }
+]

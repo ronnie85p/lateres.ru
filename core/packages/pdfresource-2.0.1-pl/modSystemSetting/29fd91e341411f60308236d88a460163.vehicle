@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'pdfresource',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '831108491083f573fb69b37b296badae',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => '29fd91e341411f60308236d88a460163',
+  'native_key' => 'pdfresource.mgf',
+  'object' => '{"key":"pdfresource.mgf","value":"9","xtype":"textfield","namespace":"pdfresource","area":"pdf","editedon":null}',
+);

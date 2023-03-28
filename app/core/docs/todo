@@ -1,0 +1,40 @@
+Auth
++ Password/Reset
++ Password/Forgot
++ Code/Send
++ Code/Verify
+- Register
+- Login
++ Logout
+
+Favorite
+- Add
+- Remove
+- GetList
+
+Comparison
+- Add
+- Remove
+- GetList
+
+Comment
+- GetList
+- SetDislike
+- SetLike
+- Send
+
+Cart
+- Add
+- Update
+- Remove
+- Clear
+- GetList
+- GetTotal
+
+Order
+- Create
+- Update
+- GetList
+
+Question
+- GetList

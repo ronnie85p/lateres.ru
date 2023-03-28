@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'pdfresource',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '986f3dc8195e27fb183aae2057eb88bb',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => 'ce8c7eb4763b1859b457a0592ffd55e4',
+  'native_key' => 'pdfresource.format',
+  'object' => '{"key":"pdfresource.format","value":"A4","xtype":"textfield","namespace":"pdfresource","area":"pdf","editedon":null}',
+);

@@ -1,0 +1,12 @@
+<?php return array (
+  'class' => 'xPDO\\Transport\\xPDOScriptVehicle',
+  'object' => 
+  array (
+    'source' => 'collections-4.0.0-beta1/xPDO/Transport/xPDOScriptVehicle/dccd302438de7c6bbfb7bd3c44a5478a.gpm.script.sync_tables.script',
+  ),
+  'vehicle_class' => 'xPDO\\Transport\\xPDOScriptVehicle',
+  'guid' => 'e4b9b8a3a1d1e7e1618d451b1a756567',
+  'package' => '',
+  'signature' => 'dccd302438de7c6bbfb7bd3c44a5478a',
+  'native_key' => 'e4b9b8a3a1d1e7e1618d451b1a756567',
+);

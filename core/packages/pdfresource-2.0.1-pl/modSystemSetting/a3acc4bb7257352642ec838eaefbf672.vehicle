@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'pdfresource',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '297a73ea7b8cd3f3ef819350ba663131',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => 'a3acc4bb7257352642ec838eaefbf672',
+  'native_key' => 'pdfresource.defaultFontSize',
+  'object' => '{"key":"pdfresource.defaultFontSize","value":"0","xtype":"textfield","namespace":"pdfresource","area":"pdf","editedon":null}',
+);

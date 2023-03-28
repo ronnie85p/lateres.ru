@@ -1,0 +1,18 @@
+<?php  return array (
+  'ago' => '[[+time]] назад',
+  'ago_day' => '[[+time]] д.',
+  'ago_days' => '[[+time]] дн.',
+  'ago_hour' => '[[+time]] ч.',
+  'ago_hours' => '[[+time]] ч.',
+  'ago_minute' => '1 мин.',
+  'ago_minutes' => '[[+time]] мин.',
+  'ago_month' => '[[+time]] мес.',
+  'ago_months' => '[[+time]] мес.',
+  'ago_seconds' => '[[+time]] сек.',
+  'ago_week' => '[[+time]] нед.',
+  'ago_weeks' => '[[+time]] нед.',
+  'ago_year' => '[[+time]] г.',
+  'ago_years' => '[[+time]] гг.',
+  'today_at' => 'сегодня в [[+time]]',
+  'yesterday_at' => 'вчера в [[+time]]',
+);

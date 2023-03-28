@@ -1,0 +1,12 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'vehicle_class' => 'xPDO\\Transport\\xPDOObjectVehicle',
+  'guid' => 'ee3a7cf86f86d1d83cac43c499e894b0',
+  'package' => '',
+  'class' => 'MODX\\Revolution\\modSystemSetting',
+  'signature' => '28da0260ce5e0e390f398210f7892101',
+  'native_key' => 'collections.mgr_date_format',
+  'object' => '{"key":"collections.mgr_date_format","value":"M d","xtype":"textfield","namespace":"collections","area":"manager","editedon":null}',
+);

@@ -1,0 +1,16 @@
+.card {
+    border: 1px solid #c0c0c054
+}
+
+.card .card-header {
+    border-bottom: 1px solid #c0c0c054
+}
+
+/* Spinner */
+.spinner .spinner-border {
+    animation-duration: .55s;
+}
+
+.invalid-feedback.show, .valid-feedback.show {
+    display: block;
+}

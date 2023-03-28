@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="WF\Auth\Model" baseClass="xPDO\Om\xPDOSimpleObject" platform="mysql" defaultEngine="InnoDB" phpdoc-package="WF\Auth\Model" version="3.0">
+
+    <object class="ProfileSettings" table="auth_profile_settings" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk"/>
+        <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+
+        <field key="two_auth_enabled" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0"/>
+        <field key="two_auth_method" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" />
+        <field key="security_question" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" />
+        <field key="security_question_answer" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+        <field key="properties" dbtype="text" phptype="json" null="true"/>
+
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="updatedby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+
+        <index alias="PRIMARY" name="PRIMARY" primary="true" unique="true" type="BTREE">
+            <column key="id" length="" collation="A" null="false" />
+        </index>
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="two_auth_method" name="two_auth_method" primary="false" unique="false" type="BTREE">
+            <column key="two_auth_method" length="" collation="A" null="false"/>
+        </index>
+        <index alias="security_question" name="security_question" primary="false" unique="false" type="BTREE">
+            <column key="security_question" length="" collation="A" null="false"/>
+        </index>
+
+        <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="Profile" class="MODX\Revolution\modFormCustomizationProfile" local="user_id" foreign="internalKey" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="TwoAuthMethod" class="WF\Auth\Model\LoginMethod" local="two_auth_method" foreign="id" cardinality="one"
+            owner="local"/>
+        <aggregate alias="SecurityQuestion" class="WF\Auth\Model\SecurityQuestion" local="security_question" foreign="id" cardinality="one"
+            owner="local"/>
+    </object>
+
+    <object class="LoginMethod" table="auth_login_methods" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk"/>
+
+        <field key="name" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+        <field key="handler_class" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+        <field key="description" dbtype="text" phptype="string" null="true"/>
+        <field key="active" dbtype="tinyint" precision="1" phptype="integer" null="true" default="1"/>
+        <field key="rank" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0"/>
+        <field key="properties" dbtype="text" phptype="json" null="true"/>
+
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="updatedby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+
+        <index alias="PRIMARY" name="PRIMARY" primary="true" unique="true" type="BTREE">
+            <column key="id" length="" collation="A" null="false" />
+        </index>
+        <index alias="active" name="active" primary="false" unique="false" type="BTREE">
+            <column key="active" length="" collation="A" null="false"/>
+        </index>
+        <index alias="rank" name="rank" primary="false" unique="false" type="BTREE">
+            <column key="rank" length="" collation="A" null="false"/>
+        </index>
+
+        <aggregate alias="Options" class="WF\Auth\Model\LoginMethodOption" local="id" foreign="method_id" cardinality="many"
+            owner="local"/>
+        <aggregate alias="ProfileSettings" class="WF\Auth\Model\LoginMethod" local="id" foreign="two_auth_method" cardinality="many"
+            owner="local"/>
+    </object>
+
+    <object class="LoginMethodOption" table="auth_login_method_options" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk"/>
+        <field key="method_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+
+        <field key="name" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+        <field key="description" dbtype="text" phptype="string" null="true"/>
+        <field key="active" dbtype="tinyint" precision="1" phptype="integer" null="true" default="1"/>
+        <field key="rank" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0"/>
+        <field key="properties" dbtype="text" phptype="json" null="true"/>
+
+        <field key="createdon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="createdby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+        <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="updatedby" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true"
+            default="0"/>
+
+        <index alias="PRIMARY" name="PRIMARY" primary="true" unique="true" type="BTREE">
+            <column key="id" length="" collation="A" null="false" />
+        </index>
+        <index alias="method_id" name="method_id" primary="false" unique="false" type="BTREE">
+            <column key="method_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="active" name="active" primary="false" unique="false" type="BTREE">
+            <column key="active" length="" collation="A" null="false"/>
+        </index>
+        <index alias="rank" name="rank" primary="false" unique="false" type="BTREE">
+            <column key="rank" length="" collation="A" null="false"/>
+        </index>
+
+        <aggregate alias="Method" class="WF\Auth\Model\LoginMethod" local="method_id" foreign="id" cardinality="one"
+            owner="local"/>
+    </object>
+
+    <object class="LoginEntry" table="auth_login_entries" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="id" dbtype="varchar" precision="191" phptype="string" null="false" index="pk" />
+        <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+
+        <field key="ip" dbtype="varchar" precision="128" phptype="string" null="false" default="" />
+        <field key="browser" dbtype="text" phptype="json" null="true"/>
+        <field key="geolocation" dbtype="text" phptype="json" null="true"/>
+
+        <field key="timestamp" dbtype="int" precision="20" phptype="timestamp" null="false" attributes="unsigned" />
+        <field key="properties" dbtype="text" phptype="json" null="true"/>
+
+        <index alias="PRIMARY" name="PRIMARY" primary="true" unique="true" type="BTREE">
+            <column key="id" length="" collation="A" null="false" />
+        </index>
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+
+        <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="Profile" class="MODX\Revolution\modFormCustomizationProfile" local="user_id" foreign="internalKey" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="Session" class="MODX\Revolution\modSession" local="id" foreign="id" cardinality="one"
+            owner="local"/>
+    </object>
+
+    <object class="SecurityQuestion" table="auth_security_questions" extends="xPDO\Om\xPDOSimpleObject">
+        <field key="id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false" index="pk"/>
+        <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0"/>
+
+        <field key="text" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+        <field key="description" dbtype="text" phptype="string" null="true"/>
+        <field key="active" dbtype="tinyint" precision="1" phptype="integer" null="true" default="1"/>
+        <field key="rank" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0"/>
+        <field key="properties" dbtype="text" phptype="json" null="true"/>
+
+        <index alias="PRIMARY" name="PRIMARY" primary="true" unique="true" type="BTREE">
+            <column key="id" length="" collation="A" null="false" />
+        </index>
+        <index alias="user_id" name="user_id" primary="false" unique="false" type="BTREE">
+            <column key="user_id" length="" collation="A" null="false"/>
+        </index>
+
+        <aggregate alias="User" class="MODX\Revolution\modUser" local="user_id" foreign="id" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="Profile" class="MODX\Revolution\modFormCustomizationProfile" local="user_id" foreign="internalKey" cardinality="one" 
+            owner="foreign" />
+        <aggregate alias="ProfileSettings" class="WF\Auth\Model\ProfileSettings" local="id" foreign="security_question" cardinality="many"
+            owner="local"/>
+    </object>
+
+</model>
